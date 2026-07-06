@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet data-dc-atomics>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:#F5E9DE;font-family:'DM Sans',system-ui,sans-serif;color:#211A15;-webkit-font-smoothing:antialiased}
+@keyframes bobArrow{0%,100%{transform:translateY(0)}50%{transform:translateY(9px)}}
+</style>
+</helmet>
+<div ref="{{ rootRef }}" style="position:relative;width:100%">
+
+  <div data-progress style="position:fixed;top:0;left:0;height:3px;width:0%;background:linear-gradient(90deg,#F58432,#E0430C);z-index:120"></div>
+
+  <header data-header style="position:fixed;top:0;left:0;right:0;z-index:110;display:flex;align-items:center;justify-content:space-between;padding:13px 30px;background:rgba(251,243,236,.72);backdrop-filter:blur(14px);border-bottom:1px solid rgba(120,70,30,.08)">
+    <div style="display:flex;align-items:center;gap:11px">
+      <div style="width:30px;height:30px;border-radius:9px;background:linear-gradient(135deg,#F58432,#E0430C);display:flex;align-items:center;justify-content:center;color:#fff;font:800 15px 'Poppins'">W</div>
+      <span style="font:700 18px 'Poppins';letter-spacing:-.01em"><span data-ink="#211A15" style="color:#211A15">mee</span><span style="color:#F26421">ventos</span></span>
+      <span data-active-name style="margin-left:12px;padding:5px 13px;border-radius:20px;background:rgba(242,100,33,.1);color:#E0430C;font:600 12px 'DM Sans';letter-spacing:.02em">Fundo de Funil</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:10px;font:600 13px 'DM Sans'">
+      <span>Melissa</span>
+      <div style="width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,#F58432,#E0430C);color:#fff;display:flex;align-items:center;justify-content:center;font:700 13px 'Poppins'">M</div>
+    </div>
+  </header>
+
+  <div ref="{{ trackRef }}" style="position:relative;width:100%;height:1400vh">
+    <div style="position:sticky;top:0;height:100vh;overflow:hidden;background:#F5E9DE">
+
+      <!-- shared branded backdrop -->
+      <div data-backdrop style="position:absolute;inset:0">
+        <div style="position:absolute;inset:0;background:radial-gradient(58% 50% at 18% 14%,rgba(242,100,33,.16),transparent 70%),radial-gradient(52% 52% at 86% 84%,rgba(224,67,12,.13),transparent 72%),#F5E9DE"></div>
+        <div style="position:absolute;inset:0;background-image:linear-gradient(rgba(190,120,70,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(190,120,70,.06) 1px,transparent 1px);background-size:66px 66px"></div>
+        <div style="position:absolute;top:6%;left:-5%;font:800 clamp(140px,21vw,330px) 'Poppins';color:rgba(242,100,33,.045);white-space:nowrap;letter-spacing:-.05em;line-height:1">meeventos</div>
+        <div style="position:absolute;bottom:4%;right:-7%;font:800 clamp(140px,21vw,330px) 'Poppins';color:rgba(224,67,12,.038);white-space:nowrap;letter-spacing:-.05em;line-height:1">meeventos</div>
+      </div>
+
+      <!-- SCENE 0 · intro -->
+      <div data-scene="0" data-type="title" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;opacity:1">
+        <div style="text-align:center;padding:0 24px;max-width:1040px">
+          <div style="font:600 13px 'DM Sans';letter-spacing:.36em;color:#E0430C;margin-bottom:22px">MEEVENTOS · RECUPERAÇÃO DE FUNDO DE FUNIL</div>
+          <h1 data-ink="#211A15" style="font:800 clamp(50px,7.4vw,110px)/0.96 'Poppins';margin:0;letter-spacing:-.025em;color:#211A15">Fundo de funil,<br><span style="color:#F26421">reativado.</span></h1>
+          <p data-ink="#7a6a5c" style="font:400 clamp(16px,1.6vw,22px)/1.55 'DM Sans';color:#7a6a5c;margin:26px auto 0;max-width:600px">Cada closer. Cada lead recuperado. Role para mergulhar no desempenho da equipe, um por um.</p>
+          <div style="margin-top:56px;display:inline-flex;flex-direction:column;align-items:center;gap:9px;color:#b09a89">
+            <span style="font:600 11px 'DM Sans';letter-spacing:.28em">ROLAR</span>
+            <span style="font-size:22px;animation:bobArrow 2s ease-in-out infinite">↓</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- CLOSER SCENES -->
+      <sc-for list="{{ closers }}" as="closer" hint-placeholder-count="4">
+
+        <!-- hero -->
+        <div data-scene="{{ closer.heroScene }}" data-type="hero" data-name="{{ closer.name }}" style="position:absolute;inset:0;opacity:0">
+          <div data-hero-media style="position:absolute;top:92px;left:8vw;right:8vw;bottom:6.5vw;border-radius:30px;overflow:hidden;box-shadow:0 34px 80px -28px rgba(120,50,10,.42);will-change:transform,filter;transform-origin:center 40%">
+            <img data-src="{{ closer.photo }}" alt="{{ closer.name }}" style="width:100%;height:100%;object-fit:cover;object-position:center 20%">
+            <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(24,12,4,.20) 0%,rgba(24,12,4,0) 26%,rgba(24,12,4,.30) 58%,rgba(20,8,2,.84) 100%)"></div>
+            <div style="position:absolute;inset:0;background:linear-gradient(105deg,rgba(224,67,12,.32),transparent 52%);mix-blend-mode:multiply"></div>
+          </div>
+          <div data-hero-name style="position:absolute;left:0;right:0;bottom:16vh;padding:0 11vw;will-change:transform">
+            <div style="display:inline-block;padding:6px 14px;border-radius:20px;background:rgba(255,255,255,.14);backdrop-filter:blur(4px);border:1px solid rgba(255,255,255,.25);font:600 12px 'DM Sans';letter-spacing:.22em;color:#FFD9BE;margin-bottom:18px">{{ closer.role }}</div>
+            <h2 style="font:800 clamp(56px,8.4vw,128px)/0.9 'Poppins';color:#fff;margin:0;letter-spacing:-.028em;text-shadow:0 6px 44px rgba(0,0,0,.4)">{{ closer.name }}</h2>
+            <div style="margin-top:18px;font:500 16px 'DM Sans';color:rgba(255,255,255,.8);letter-spacing:.02em">{{ closer.heroLine }}</div>
+          </div>
+        </div>
+
+        <!-- data / graph -->
+        <div data-scene="{{ closer.dataScene }}" data-type="data" data-name="{{ closer.name }}" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;opacity:0;padding:0 24px">
+          <div style="position:absolute;inset:0;opacity:.1;overflow:hidden">
+            <img data-src="{{ closer.photo }}" alt="" style="width:100%;height:100%;object-fit:cover;object-position:center 18%;filter:grayscale(1) contrast(.85)">
+          </div>
+          <div data-panel style="position:relative;width:min(1080px,92vw);background:rgba(255,255,255,.72);backdrop-filter:blur(18px);border:1px solid rgba(255,255,255,.85);border-radius:30px;box-shadow:0 36px 90px -24px rgba(180,80,20,.32);padding:36px 40px;will-change:transform,filter">
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:24px;margin-bottom:28px;flex-wrap:wrap">
+              <div style="display:flex;align-items:center;gap:18px">
+                <div style="width:78px;height:78px;border-radius:20px;overflow:hidden;box-shadow:0 10px 26px rgba(120,60,20,.18);border:2px solid #fff">
+                  <img data-src="{{ closer.photo }}" alt="{{ closer.name }}" style="width:100%;height:100%;object-fit:cover;object-position:center 20%">
+                </div>
+                <div>
+                  <div data-ink="#211A15" style="font:700 clamp(24px,2.6vw,32px)/1 'Poppins';color:#211A15;letter-spacing:-.01em">{{ closer.name }}</div>
+                  <div style="font:600 13px 'DM Sans';letter-spacing:.14em;color:#F26421;margin-top:4px">CLOSER</div>
+                </div>
+              </div>
+              <div data-recup="{{ closer.recup }}" style="position:relative;width:132px;height:132px;border-radius:50%;background:conic-gradient(#F26421 0%,#FFE3D0 0)">
+                <div style="position:absolute;inset:11px;border-radius:50%;background:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center">
+                  <span data-count="{{ closer.recup }}" data-suffix="%" data-color="#211A15" style="font:800 30px 'Poppins'">0%</span>
+                  <span style="font:600 10px 'DM Sans';letter-spacing:.14em;color:#9a8a7d;margin-top:2px">RECUP.</span>
+                </div>
+              </div>
+            </div>
+            <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:15px">
+              <sc-for list="{{ closer.stats }}" as="stat" hint-placeholder-count="6">
+                <div data-card style="background:#fff;border-radius:18px;padding:20px 22px;box-shadow:0 5px 18px rgba(180,120,80,.09)">
+                  <div data-count="{{ stat.n }}" data-suffix="{{ stat.suf }}" data-color="{{ stat.color }}" style="font:800 clamp(28px,3vw,36px)/1 'Poppins'">0</div>
+                  <div style="margin-top:9px;font:600 11.5px 'DM Sans';letter-spacing:.09em;color:#9a8a7d">{{ stat.label }}</div>
+                </div>
+              </sc-for>
+            </div>
+            <div style="margin-top:22px;padding-top:22px;border-top:1px solid rgba(120,70,30,.1)">
+              <div style="font:600 11px 'DM Sans';letter-spacing:.16em;color:#9a8a7d;margin-bottom:16px">FUNIL DE RECUPERAÇÃO</div>
+              <sc-for list="{{ closer.funnel }}" as="fb" hint-placeholder-count="4">
+                <div style="display:flex;align-items:center;gap:14px;margin-bottom:11px">
+                  <div data-ink="#5c4d42" style="width:118px;flex:none;font:600 12.5px 'DM Sans';color:#5c4d42;text-align:right">{{ fb.label }}</div>
+                  <div data-track style="flex:1;height:24px;background:rgba(120,70,30,.07);border-radius:8px;overflow:hidden">
+                    <div data-bar="{{ fb.pct }}" data-color="{{ fb.color }}" style="height:100%;width:0%;border-radius:8px"></div>
+                  </div>
+                  <div data-ink="#211A15" style="width:40px;flex:none;font:700 14px 'Poppins';color:#211A15;text-align:right">{{ fb.val }}</div>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+        </div>
+
+      </sc-for>
+
+      <!-- FINAL SCENE · dashboard comparativo -->
+      <div data-scene="{{ dashScene }}" data-type="dash" data-name="Dashboard geral" data-dash style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;opacity:0;padding:76px 24px 22px">
+        <div data-panel style="position:relative;width:min(1280px,95vw);will-change:transform,filter">
+
+          <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:20px;margin-bottom:16px;flex-wrap:wrap">
+            <div>
+              <div style="font:600 11px 'DM Sans';letter-spacing:.32em;color:#E0430C">VISÃO GERAL · SOMENTE LEITURA</div>
+              <h2 data-ink="#211A15" style="font:800 clamp(30px,3.4vw,48px)/1 'Poppins';margin:7px 0 0;letter-spacing:-.02em">Dashboard do funil</h2>
+            </div>
+            <div data-ink="#7a6a5c" style="font:500 13px 'DM Sans';color:#7a6a5c">4 closers · consolidado do time de recuperação</div>
+          </div>
+
+          <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:13px;margin-bottom:14px">
+            <div data-card style="background:#fff;border-radius:16px;padding:16px 18px;box-shadow:0 5px 18px rgba(180,120,80,.1)">
+              <div data-count="381" data-suffix="" data-color="#F26421" style="font:800 34px 'Poppins';line-height:1">0</div>
+              <div style="margin-top:7px;font:600 11px 'DM Sans';letter-spacing:.09em;color:#9a8a7d">LEADS TOTAIS</div>
+            </div>
+            <div data-card style="background:#fff;border-radius:16px;padding:16px 18px;box-shadow:0 5px 18px rgba(180,120,80,.1)">
+              <div data-count="91" data-suffix="" data-color="#16A34A" style="font:800 34px 'Poppins';line-height:1">0</div>
+              <div style="margin-top:7px;font:600 11px 'DM Sans';letter-spacing:.09em;color:#9a8a7d">RECUPERADOS</div>
+            </div>
+            <div data-card style="background:#fff;border-radius:16px;padding:16px 18px;box-shadow:0 5px 18px rgba(180,120,80,.1)">
+              <div data-count="32" data-suffix="%" data-color="#211A15" style="font:800 34px 'Poppins';line-height:1">0</div>
+              <div style="margin-top:7px;font:600 11px 'DM Sans';letter-spacing:.09em;color:#9a8a7d">INTERESSE MÉDIO</div>
+            </div>
+            <div data-card style="background:#fff;border-radius:16px;padding:16px 18px;box-shadow:0 5px 18px rgba(180,120,80,.1)">
+              <div data-count="14" data-suffix="" data-color="#E23B2E" style="font:800 34px 'Poppins';line-height:1">0</div>
+              <div style="margin-top:7px;font:600 11px 'DM Sans';letter-spacing:.09em;color:#9a8a7d">LEADS QUENTES 🔥</div>
+            </div>
+          </div>
+
+          <div style="display:grid;grid-template-columns:1.12fr 0.88fr;gap:13px">
+
+            <!-- COMPARATIVO ENTRE CLOSERS -->
+            <div data-card style="background:#fff;border-radius:18px;padding:18px 20px;box-shadow:0 5px 18px rgba(180,120,80,.1)">
+              <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:14px">
+                <div>
+                  <div data-ink="#211A15" style="font:700 15px 'Poppins';color:#211A15">Comparativo entre closers</div>
+                  <div data-cmp-avg style="margin-top:2px;font:600 11px 'DM Sans';color:#9a8a7d">média —</div>
+                </div>
+                <div data-cmp-tabs style="display:inline-flex;background:rgba(120,70,30,.08);border-radius:11px;padding:3px;gap:2px">
+                  <button data-metric="recuperados" onClick="{{ onMetric }}" style="border:none;background:#fff;cursor:pointer;font:600 11px 'DM Sans';padding:6px 10px;border-radius:8px;color:#211A15">Recuperados</button>
+                  <button data-metric="interesse" onClick="{{ onMetric }}" style="border:none;background:transparent;cursor:pointer;font:600 11px 'DM Sans';padding:6px 10px;border-radius:8px;color:#7a6a5c">Interesse</button>
+                  <button data-metric="meshow" onClick="{{ onMetric }}" style="border:none;background:transparent;cursor:pointer;font:600 11px 'DM Sans';padding:6px 10px;border-radius:8px;color:#7a6a5c">MeShow</button>
+                  <button data-metric="taxa" onClick="{{ onMetric }}" style="border:none;background:transparent;cursor:pointer;font:600 11px 'DM Sans';padding:6px 10px;border-radius:8px;color:#7a6a5c">Taxa recup.</button>
+                </div>
+              </div>
+              <sc-for list="{{ closers }}" as="c" hint-placeholder-count="4">
+                <div data-cmp-row data-idx="{{ c.idx }}" onMouseEnter="{{ onRowEnter }}" onMouseLeave="{{ onRowLeave }}" style="display:flex;align-items:center;gap:11px;padding:6px 8px;border-radius:11px;cursor:default;transition:background .2s">
+                  <div style="width:29px;height:29px;border-radius:9px;background:linear-gradient(135deg,#F58432,#E0430C);color:#fff;display:flex;align-items:center;justify-content:center;font:700 13px 'Poppins';flex:none">{{ c.initial }}</div>
+                  <div data-ink="#211A15" style="width:74px;flex:none;font:600 13px 'DM Sans';color:#211A15">{{ c.name }}</div>
+                  <div data-cmp-track style="flex:1;height:22px;background:rgba(120,70,30,.07);border-radius:7px;overflow:hidden">
+                    <div data-cmp-bar style="height:100%;width:0%;border-radius:7px;background:#16A34A;transition:width .55s cubic-bezier(.22,1,.36,1),background .3s"></div>
+                  </div>
+                  <div data-cmp-val data-ink="#211A15" style="width:48px;flex:none;text-align:right;font:800 15px 'Poppins';color:#211A15">0</div>
+                  <div data-cmp-delta style="width:80px;flex:none;text-align:right;font:600 10.5px 'DM Sans';color:#9a8a7d;opacity:0;transition:opacity .2s">–</div>
+                </div>
+              </sc-for>
+            </div>
+
+            <!-- FUNIL CONSOLIDADO -->
+            <div data-card style="background:#fff;border-radius:18px;padding:18px 20px;box-shadow:0 5px 18px rgba(180,120,80,.1)">
+              <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px">
+                <div data-ink="#211A15" style="font:700 15px 'Poppins';color:#211A15">Funil consolidado</div>
+                <div data-recup="24" style="position:relative;width:70px;height:70px;border-radius:50%;background:conic-gradient(#F26421 0%,#FFE3D0 0);flex:none">
+                  <div style="position:absolute;inset:7px;border-radius:50%;background:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center">
+                    <span data-count="24" data-suffix="%" data-color="#211A15" style="font:800 17px 'Poppins'">0%</span>
+                    <span style="font:600 7.5px 'DM Sans';letter-spacing:.1em;color:#9a8a7d">TAXA GERAL</span>
+                  </div>
+                </div>
+              </div>
+              <sc-for list="{{ funnelC }}" as="s" hint-placeholder-count="4">
+                <div data-fun-step onMouseEnter="{{ onStepEnter }}" onMouseLeave="{{ onStepLeave }}" style="padding:6px 8px;border-radius:11px;cursor:default;transition:background .2s;margin-bottom:2px">
+                  <div style="display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin-bottom:5px">
+                    <span data-ink="#5c4d42" style="font:600 12.5px 'DM Sans';color:#5c4d42">{{ s.label }}</span>
+                    <span><span data-ink="#211A15" style="font:800 15px 'Poppins';color:#211A15">{{ s.count }}</span><span style="font:600 11px 'DM Sans';color:#9a8a7d"> · {{ s.pct }}%</span></span>
+                  </div>
+                  <div style="height:14px;background:rgba(120,70,30,.07);border-radius:6px;overflow:hidden">
+                    <div data-fun-bar="{{ s.pct }}" style="height:100%;width:0%;border-radius:6px;background:{{ s.color }};transition:width .6s cubic-bezier(.22,1,.36,1)"></div>
+                  </div>
+                  <div data-fun-detail style="margin-top:4px;font:600 10.5px 'DM Sans';color:#9a8a7d;opacity:0;transition:opacity .2s">conversão da etapa anterior: {{ s.conv }}</div>
+                </div>
+              </sc-for>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:&quot;100%&quot;,&quot;height&quot;:&quot;100%&quot;},&quot;theme&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;light&quot;,&quot;options&quot;:[&quot;light&quot;,&quot;dark&quot;],&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Estilo&quot;},&quot;intensity&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:1,&quot;min&quot;:0.4,&quot;max&quot;:1.8,&quot;step&quot;:0.1,&quot;unit&quot;:&quot;x&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Parallax&quot;},&quot;countUp&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Parallax&quot;},&quot;panelTone&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;glass&quot;,&quot;options&quot;:[&quot;glass&quot;,&quot;solid&quot;],&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Estilo&quot;}}">
+class Component extends DCLogic {
+  constructor(props){
+    super(props);
+    this.rootRef = React.createRef();
+    this.trackRef = React.createRef();
+    this._raf = null;
+    this._states = 10;
+    this._metric = 'recuperados';
+  }
+
+  renderVals(){
+    const O='#F26421', D='#211A15', R='#E23B2E', G='#16A34A';
+    const st=(n,label,suf,color)=>({n:n,label:label,suf:suf||'',color:color});
+    const closers=[
+      {
+        name:'Jonatha', role:'CLOSER · TOP PERFORMER', tagline:'Líder de recuperação',
+        photo:'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=1500&q=80',
+        heroLine:'128 leads · 34 recuperados · 41% de interesse médio', recup:27,
+        stats:[ st(128,'LEADS','',O), st(92,'AGENDAMENTOS','',D), st(74,'MESHOW','',O),
+                st(18,'NO-SHOWS','',R), st(34,'RECUPERADOS','',G), st(41,'INTERESSE MÉD.','%',O) ]
+      },
+      {
+        name:'Melissa', role:'CLOSER', tagline:'Reativação de contas',
+        photo:'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=1500&q=80',
+        heroLine:'96 leads · 22 recuperados · 33% de interesse médio', recup:23,
+        stats:[ st(96,'LEADS','',O), st(71,'AGENDAMENTOS','',D), st(55,'MESHOW','',O),
+                st(16,'NO-SHOWS','',R), st(22,'RECUPERADOS','',G), st(33,'INTERESSE MÉD.','%',O) ]
+      },
+      {
+        name:'Rita', role:'CLOSER', tagline:'Follow-up implacável',
+        photo:'https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=1500&q=80',
+        heroLine:'84 leads · 19 recuperados · 29% de interesse médio', recup:22,
+        stats:[ st(84,'LEADS','',O), st(60,'AGENDAMENTOS','',D), st(47,'MESHOW','',O),
+                st(13,'NO-SHOWS','',R), st(19,'RECUPERADOS','',G), st(29,'INTERESSE MÉD.','%',O) ]
+      },
+      {
+        name:'Sara', role:'CLOSER', tagline:'Especialista em objeções',
+        photo:'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=1500&q=80',
+        heroLine:'73 leads · 16 recuperados · 26% de interesse médio', recup:21,
+        stats:[ st(73,'LEADS','',O), st(52,'AGENDAMENTOS','',D), st(40,'MESHOW','',O),
+                st(12,'NO-SHOWS','',R), st(16,'RECUPERADOS','',G), st(26,'INTERESSE MÉD.','%',O) ]
+      }
+    ];
+    const fdef=[[0,'Leads','#E0430C'],[1,'Agendamentos','#F26421'],[2,'MeShow','#F58432'],[4,'Recuperados','#16A34A']];
+    closers.forEach(function(c,i){
+      c.heroScene = 1 + i*2;
+      c.dataScene = 2 + i*2;
+      c.idx = i;
+      c.initial = c.name.charAt(0);
+      const leads = c.stats[0].n || 1;
+      c.funnel = fdef.map(function(d){
+        return { label:d[1], val:c.stats[d[0]].n, pct: Math.round(c.stats[d[0]].n / leads * 100), color:d[2] };
+      });
+    });
+    this._states = 2 + closers.length*2;      // intro + (hero+data)*N + dash
+    const dashScene = 1 + closers.length*2;    // = 9
+
+    // comparison metrics across closers
+    this._metrics = {
+      recuperados:{ label:'Recuperados', color:'#16A34A', suf:'',  vals: closers.map(c=>c.stats[4].n) },
+      interesse:  { label:'Interesse',   color:'#F26421', suf:'%', vals: closers.map(c=>c.stats[5].n) },
+      meshow:     { label:'MeShow',      color:'#F58432', suf:'',  vals: closers.map(c=>c.stats[2].n) },
+      taxa:       { label:'Taxa recup.', color:'#E0430C', suf:'%', vals: closers.map(c=>c.recup) }
+    };
+    // consolidated funnel
+    const sum = a => a.reduce((x,y)=>x+y,0);
+    const tLeads = sum(closers.map(c=>c.stats[0].n));
+    const tAg    = sum(closers.map(c=>c.stats[1].n));
+    const tMs    = sum(closers.map(c=>c.stats[2].n));
+    const tRec   = sum(closers.map(c=>c.stats[4].n));
+    const funnelC = [
+      { label:'Leads',        count:tLeads, pct:100,                              conv:'etapa inicial',           color:'#E0430C' },
+      { label:'Agendamentos', count:tAg,    pct:Math.round(tAg/tLeads*100),       conv:Math.round(tAg/tLeads*100)+'%', color:'#F26421' },
+      { label:'MeShow',       count:tMs,    pct:Math.round(tMs/tLeads*100),       conv:Math.round(tMs/tAg*100)+'%',    color:'#F58432' },
+      { label:'Recuperados',  count:tRec,   pct:Math.round(tRec/tLeads*100),      conv:Math.round(tRec/tMs*100)+'%',   color:'#16A34A' }
+    ];
+    this._funColors = funnelC.map(f=>f.color);
+
+    return {
+      rootRef:this.rootRef, trackRef:this.trackRef, closers:closers, dashScene:dashScene, funnelC:funnelC,
+      onMetric:this.onMetric, onRowEnter:this.onRowEnter, onRowLeave:this.onRowLeave,
+      onStepEnter:this.onStepEnter, onStepLeave:this.onStepLeave
+    };
+  }
+
+  onMetric = (e) => { this._metric = e.currentTarget.getAttribute('data-metric'); this.renderDash(); };
+  onRowEnter = (e) => {
+    const row = e.currentTarget; const dark = (this.props.theme === 'dark');
+    row.style.background = dark ? 'rgba(255,200,150,.08)' : 'rgba(242,100,33,.07)';
+    const d = row.querySelector('[data-cmp-delta]');
+    if(d){ const dl = row._delta || 0; const suf = this._metrics[this._metric].suf;
+      d.textContent = (dl>=0?'+':'') + dl + suf + ' vs média'; d.style.color = dl>=0 ? '#16A34A' : '#E23B2E'; d.style.opacity = '1'; }
+  };
+  onRowLeave = (e) => { const row = e.currentTarget; row.style.background = 'transparent'; const d = row.querySelector('[data-cmp-delta]'); if(d) d.style.opacity = '0'; };
+  onStepEnter = (e) => {
+    const s = e.currentTarget; const dark = (this.props.theme === 'dark');
+    s.style.background = dark ? 'rgba(255,200,150,.08)' : 'rgba(242,100,33,.07)';
+    const d = s.querySelector('[data-fun-detail]'); if(d) d.style.opacity = '1';
+  };
+  onStepLeave = (e) => { const s = e.currentTarget; s.style.background = 'transparent'; const d = s.querySelector('[data-fun-detail]'); if(d) d.style.opacity = '0'; };
+
+  renderDash(){
+    const root = this.rootRef.current; if(!root) return;
+    const dash = root.querySelector('[data-dash]'); if(!dash) return;
+    const dark = (this.props.theme === 'dark');
+    const M = this._metrics && this._metrics[this._metric]; if(!M) return;
+    const vals = M.vals, max = Math.max.apply(null, vals) || 1;
+    const avg = Math.round(vals.reduce((a,b)=>a+b,0) / vals.length);
+
+    const avgEl = dash.querySelector('[data-cmp-avg]');
+    if(avgEl) avgEl.textContent = 'média ' + avg + M.suf;
+
+    dash.querySelectorAll('[data-metric]').forEach(b=>{
+      const on = b.getAttribute('data-metric') === this._metric;
+      b.style.background = on ? (dark ? '#3a2a1e' : '#fff') : 'transparent';
+      b.style.color = on ? (dark ? '#F3E7DC' : '#211A15') : (dark ? '#b6a596' : '#7a6a5c');
+      b.style.boxShadow = on ? '0 2px 6px rgba(120,60,20,.14)' : 'none';
+    });
+    const tabs = dash.querySelector('[data-cmp-tabs]');
+    if(tabs) tabs.style.background = dark ? 'rgba(255,200,150,.1)' : 'rgba(120,70,30,.08)';
+
+    dash.querySelectorAll('[data-cmp-row]').forEach((row,i)=>{
+      const v = vals[i] || 0;
+      const bar = row.querySelector('[data-cmp-bar]');
+      const val = row.querySelector('[data-cmp-val]');
+      if(bar){ bar.style.width = (v/max*100) + '%'; bar.style.background = M.color; }
+      if(val){ val.textContent = v + M.suf; }
+      row._delta = v - avg;
+    });
+    dash.querySelectorAll('[data-cmp-track]').forEach(t=>{ t.style.background = dark ? 'rgba(255,200,150,.1)' : 'rgba(120,70,30,.07)'; });
+    dash.querySelectorAll('[data-fun-bar]').forEach((bar,i)=>{
+      bar.style.width = (parseFloat(bar.getAttribute('data-fun-bar')) || 0) + '%';
+      if(this._funColors && this._funColors[i]) bar.style.background = this._funColors[i];
+    });
+  }
+
+  applyTheme(){
+    const root = this.rootRef.current; if(!root) return;
+    const dark = (this.props.theme === 'dark');
+    const tone = this.props.panelTone || 'glass';
+    document.body.style.background = dark ? '#171210' : '#F5E9DE';
+    const bd = root.querySelector('[data-backdrop]');
+    if(bd){
+      const base=bd.children[0], grid=bd.children[1], m1=bd.children[2], m2=bd.children[3];
+      if(base) base.style.background = dark
+        ? 'radial-gradient(58% 50% at 18% 14%,rgba(242,100,33,.22),transparent 66%),radial-gradient(52% 52% at 86% 84%,rgba(224,67,12,.20),transparent 70%),#171210'
+        : 'radial-gradient(58% 50% at 18% 14%,rgba(242,100,33,.16),transparent 70%),radial-gradient(52% 52% at 86% 84%,rgba(224,67,12,.13),transparent 72%),#F5E9DE';
+      if(grid) grid.style.backgroundImage = dark
+        ? 'linear-gradient(rgba(255,180,120,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(255,180,120,.05) 1px,transparent 1px)'
+        : 'linear-gradient(rgba(190,120,70,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(190,120,70,.06) 1px,transparent 1px)';
+      if(m1) m1.style.color = dark ? 'rgba(242,100,33,.08)' : 'rgba(242,100,33,.045)';
+      if(m2) m2.style.color = dark ? 'rgba(224,67,12,.07)' : 'rgba(224,67,12,.038)';
+    }
+    const hd = root.querySelector('[data-header]');
+    if(hd){
+      hd.style.background = dark ? 'rgba(18,13,10,.74)' : 'rgba(251,243,236,.72)';
+      hd.style.borderBottom = dark ? '1px solid rgba(255,180,120,.1)' : '1px solid rgba(120,70,30,.08)';
+    }
+    root.querySelectorAll('[data-panel]').forEach(el=>{
+      if(el.closest('[data-type="dash"]')) return;
+      if(dark){
+        el.style.background = tone === 'solid' ? '#241a13' : 'rgba(30,22,17,.74)';
+        el.style.border = '1px solid rgba(255,180,120,.14)';
+        el.style.boxShadow = '0 36px 90px -24px rgba(0,0,0,.5)';
+      } else {
+        el.style.background = tone === 'solid' ? '#ffffff' : 'rgba(255,255,255,.72)';
+        el.style.border = '1px solid rgba(255,255,255,.85)';
+        el.style.boxShadow = '0 36px 90px -24px rgba(180,80,20,.32)';
+      }
+      el.style.backdropFilter = tone === 'solid' ? 'none' : 'blur(18px)';
+    });
+    root.querySelectorAll('[data-card]').forEach(c=>{
+      c.style.background = dark ? '#221913' : '#fff';
+      c.style.boxShadow = dark ? '0 6px 20px rgba(0,0,0,.4)' : '0 5px 18px rgba(180,120,80,.09)';
+      const lbl = c.querySelector('div:last-child');
+      if(lbl) lbl.style.color = dark ? '#ab9889' : '#9a8a7d';
+    });
+    root.querySelectorAll('[data-recup]').forEach(r=>{ const i=r.firstElementChild; if(i) i.style.background = dark ? '#221913' : '#fff'; });
+    root.querySelectorAll('[data-track]').forEach(t=>{ t.style.background = dark ? 'rgba(255,200,150,.1)' : 'rgba(120,70,30,.07)'; });
+    root.querySelectorAll('[data-ink]').forEach(el=>{
+      const o = el.getAttribute('data-ink');
+      let d = '#F3E7DC';
+      if(o === '#5c4d42') d = '#cbb9a9';
+      else if(o === '#7a6a5c') d = '#b6a596';
+      el.style.color = dark ? d : o;
+    });
+    this.renderDash();
+  }
+
+  eo(t){ t=Math.min(1,Math.max(0,t)); return 1 - Math.pow(1-t, 3); }
+  eb(t){ t=Math.min(1,Math.max(0,t)); const c1=1.70158, c3=c1+1; return 1 + c3*Math.pow(t-1,3) + c1*Math.pow(t-1,2); }
+
+  setFill(el, nv, up){
+    const eff = up ? nv : (nv > 0.001 ? 1 : 0);
+    const dark = (this.props.theme === 'dark');
+    el.querySelectorAll('[data-count]').forEach(c=>{
+      const t = parseFloat(c.getAttribute('data-count')) || 0;
+      const suf = c.getAttribute('data-suffix') || '';
+      const col = c.getAttribute('data-color');
+      if(col) c.style.color = (dark && col === '#211A15') ? '#F3E7DC' : col;
+      c.textContent = Math.round(t * eff) + suf;
+    });
+    el.querySelectorAll('[data-bar]').forEach(b=>{
+      const pct = parseFloat(b.getAttribute('data-bar')) || 0;
+      const col = b.getAttribute('data-color');
+      if(col) b.style.background = col;
+      b.style.width = (pct * eff) + '%';
+    });
+    const ring = el.querySelector('[data-recup]');
+    if(ring){
+      const rt = parseFloat(ring.getAttribute('data-recup')) || 0;
+      ring.style.background = 'conic-gradient(#F26421 ' + (rt * eff) + '%, #FFE3D0 0)';
+    }
+  }
+
+  // phase: 'hold' | 'exit' | 'enter' | 'off'; f = transition fraction 0..1
+  applyScene(el, type, phase, f, m){
+    const up = (this.props.countUp !== false);
+    if(phase === 'off'){
+      el.style.opacity = '0';
+      if(type === 'data' || type === 'dash') this.setFill(el, 0, up);
+      return;
+    }
+    const e = this.eo(f), eb = this.eb(f);
+
+    if(type === 'title'){
+      if(phase === 'hold'){ el.style.opacity = '1'; el.style.transform = 'none'; }
+      else if(phase === 'exit'){ el.style.opacity = String(1 - e); el.style.transform = 'translateY(' + (-f*80*m) + 'px) scale(' + (1 - f*0.05) + ')'; }
+      else { el.style.opacity = String(e); el.style.transform = 'translateY(' + ((1-e)*40) + 'px)'; }
+      return;
+    }
+
+    if(type === 'hero'){
+      const media = el.querySelector('[data-hero-media]');
+      const name  = el.querySelector('[data-hero-name]');
+      let op, mt, nt, blur;
+      if(phase === 'hold'){ op = 1; mt = 'translateY(0) scale(1)'; blur = 0; nt = 'translateY(0)'; }
+      else if(phase === 'exit'){ op = 1 - e; mt = 'translateY(' + (-f*150*m) + 'px) scale(' + (1 + f*0.42) + ')'; blur = f*10; nt = 'translateY(' + (-f*118*m) + 'px)'; }
+      else { op = e; mt = 'translateY(' + ((1-e)*70) + 'px) scale(1)'; blur = 0; nt = 'translateY(' + ((1-e)*90) + 'px)'; }
+      el.style.opacity = String(op);
+      if(media){ media.style.transform = mt; media.style.filter = 'blur(' + blur + 'px)'; }
+      if(name) name.style.transform = nt;
+      return;
+    }
+
+    // data / dash
+    const panel = el.querySelector('[data-panel]');
+    let op, pt, blur, nv;
+    if(phase === 'hold'){ op = 1; pt = 'translateY(0) scale(1)'; blur = 0; nv = 1; }
+    else if(phase === 'exit'){ op = 1 - e; pt = 'translateY(' + (-f*70*m) + 'px) scale(' + (1 - f*0.04) + ')'; blur = f*8; nv = 1; }
+    else { op = Math.min(1, f*1.25); pt = 'translateY(' + ((1 - eb)*72) + 'px) scale(' + (0.9 + 0.1*eb) + ')'; blur = (1 - e)*8; nv = e; }
+    el.style.opacity = String(op);
+    if(panel){ panel.style.transform = pt; panel.style.filter = 'blur(' + blur + 'px)'; }
+    this.setFill(el, nv, up);
+  }
+
+  onScroll = () => {
+    const root = this.rootRef.current;
+    if(!root) return;
+    const vh = window.innerHeight;
+    const m = (this.props.intensity != null ? this.props.intensity : 1);
+
+    root.querySelectorAll('img[data-src]').forEach(im=>{
+      const s = im.getAttribute('data-src');
+      if(s && s.indexOf('http') === 0 && im.getAttribute('src') !== s) im.setAttribute('src', s);
+    });
+
+    this.applyTheme();
+
+    const s = window.scrollY;
+    const T = vh * 0.75;   // transition length
+    const D = vh * 0.6;    // dwell length
+    const U = T + D;
+
+    let bestOp = 0, activeName = 'Fundo de Funil';
+    root.querySelectorAll('[data-scene]').forEach(el=>{
+      const k = parseInt(el.getAttribute('data-scene'), 10) || 0;
+      const type = el.getAttribute('data-type');
+      const Pk = k * U;
+      let phase = 'off', f = 0;
+      if(s >= Pk && s <= Pk + D){ phase = 'hold'; }
+      else if(s > Pk + D && s < Pk + D + T){ phase = 'exit'; f = (s - (Pk + D)) / T; }
+      else if(s >= Pk - T && s < Pk){ phase = 'enter'; f = (s - (Pk - T)) / T; }
+      this.applyScene(el, type, phase, f, m);
+      const op = parseFloat(el.style.opacity) || 0;
+      const nm = el.getAttribute('data-name');
+      if(nm && op > bestOp){ bestOp = op; activeName = nm; }
+    });
+
+    const Plast = (this._states - 1) * U;
+    const sp = Math.min(1, Math.max(0, s / (Plast + D)));
+    const pb = root.querySelector('[data-progress]');
+    if(pb) pb.style.width = (sp * 100) + '%';
+    const an = root.querySelector('[data-active-name]');
+    if(an) an.textContent = activeName;
+  };
+
+  tick = () => {
+    if(this._raf) return;
+    this._raf = requestAnimationFrame(()=>{ this._raf = null; this.onScroll(); });
+  };
+
+  setTrack = () => {
+    if(this.trackRef.current){
+      this.trackRef.current.style.height = ((this._states - 1) * 135 + 160) + 'vh';
+    }
+  };
+
+  componentDidMount(){
+    this.setTrack();
+    window.addEventListener('scroll', this.tick, {passive:true});
+    window.addEventListener('resize', this.tick);
+    requestAnimationFrame(()=>this.onScroll());
+    setTimeout(()=>{ this.setTrack(); this.onScroll(); }, 400);
+  }
+  componentDidUpdate(){ this.onScroll(); }
+  componentWillUnmount(){
+    window.removeEventListener('scroll', this.tick);
+    window.removeEventListener('resize', this.tick);
+  }
+}
+</script>
+</body>
+</html>
