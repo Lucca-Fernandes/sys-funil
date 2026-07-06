@@ -1,0 +1,206 @@
+@import "tailwindcss";
+
+/* ───────────────────────────────────────────────────────────────────────────
+   meeventos — modo CINEMA (dark) + identidade laranja
+   Mesma linguagem da aba Apresentação: fundo #171210, brilhos laranja,
+   curvas orgânicas, tinta creme #F3E7DC.
+   ─────────────────────────────────────────────────────────────────────────── */
+@theme {
+  --color-brand-50: #fff4ec;
+  --color-brand-100: #ffe4d2;
+  --color-brand-200: #ffc6a3;
+  --color-brand-300: #ffa066;
+  --color-brand-400: #ff7d36;
+  --color-brand-500: #f95e0a;
+  --color-brand-600: #ee5d02;
+  --color-brand-700: #c54905;
+  --color-brand-800: #9b3a09;
+  --color-brand-900: #7d320c;
+
+  /* tinta clara sobre fundo escuro (tokens dark do design) */
+  --color-ink: #f3e7dc;
+  --color-ink-soft: #b6a596;
+
+  /* superfícies do modo cinema */
+  --color-card: #221913; /* cards/painéis */
+  --color-card-2: #1d1510; /* inputs/superfícies fundas */
+  --color-line: rgba(255, 180, 120, 0.14); /* hairlines/bordas */
+
+  --font-display: var(--font-poppins), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-dm: var(--font-dm-sans), ui-sans-serif, system-ui, sans-serif;
+
+  --animate-float: float 9s ease-in-out infinite;
+  --animate-float-slow: float 16s ease-in-out infinite;
+  --animate-blob: blob 22s ease-in-out infinite;
+  --animate-shimmer: shimmer 2.4s linear infinite;
+  --animate-rise: rise 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+:root {
+  --background: #171210;
+  --foreground: #f3e7dc;
+}
+
+html {
+  color-scheme: dark;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0) translateX(0);
+  }
+  50% {
+    transform: translateY(-22px) translateX(10px);
+  }
+}
+
+@keyframes blob {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  33% {
+    transform: translate(40px, -30px) scale(1.12);
+  }
+  66% {
+    transform: translate(-30px, 25px) scale(0.92);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ── utilitários de marca ─────────────────────────────────────────────── */
+.text-gradient-brand {
+  background: linear-gradient(100deg, #ffb27a 0%, #f26421 45%, #e0430c 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+.bg-brand-gradient {
+  background-image: linear-gradient(120deg, #ff8a3d 0%, #f95e0a 48%, #e14a00 100%);
+}
+
+.bg-brand-radial {
+  background-image:
+    radial-gradient(58% 50% at 18% 14%, rgba(242, 100, 33, 0.2), transparent 66%),
+    radial-gradient(52% 52% at 86% 84%, rgba(224, 67, 12, 0.18), transparent 70%);
+}
+
+.glass {
+  background: rgba(30, 22, 17, 0.72);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+.card-elev {
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.35),
+    0 14px 34px -12px rgba(0, 0, 0, 0.5);
+}
+
+.shadow-brand {
+  box-shadow: 0 14px 34px -12px rgba(238, 93, 2, 0.5);
+}
+
+/* impede a página de ganhar rolagem horizontal própria
+   (o quadro full-bleed usa w-screen, que inclui a largura da barra vertical) */
+html,
+body {
+  overflow-x: clip;
+}
+
+/* barra de rolagem fina e sempre visível (quadro Kanban e colunas) */
+.scroll-fino {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.22) transparent;
+}
+.scroll-fino::-webkit-scrollbar {
+  height: 10px;
+  width: 8px;
+}
+.scroll-fino::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 999px;
+}
+.scroll-fino::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.18);
+  border-radius: 999px;
+}
+.scroll-fino::-webkit-scrollbar-thumb:hover {
+  background: rgba(249, 94, 10, 0.55);
+}
+
+/* Impressão do relatório (/admin/relatorio): só o documento, cores fiéis. */
+.print-doc {
+  print-color-adjust: exact;
+  -webkit-print-color-adjust: exact;
+}
+@media print {
+  html,
+  body {
+    background: #fff !important;
+    overflow: visible !important;
+  }
+  header,
+  .no-print,
+  .bg-brand-radial {
+    display: none !important;
+  }
+  main {
+    max-width: none !important;
+    padding: 0 !important;
+  }
+  .print-doc {
+    max-width: none !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+  }
+}
+@page {
+  size: a4;
+  margin: 14mm;
+}
+
+/* respeita preferências de movimento reduzido */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+::selection {
+  background: rgba(249, 94, 10, 0.35);
+}
