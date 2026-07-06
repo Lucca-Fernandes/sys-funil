@@ -33,9 +33,6 @@ npm install
 npm run dev
 ```
 
-Acesse **http://localhost:3000**. Login de demo: `sara@meeventos.com` / `senha123`
-(troca de senha obrigatória no 1º acesso). Gestor: `admin@meeventos.com`.
-
 ---
 
 ## Variáveis de ambiente
@@ -57,25 +54,3 @@ Cada serviço tem seu `.env` (veja os `.env.example`). Os essenciais:
 | `NEXT_PUBLIC_API_URL` | URL do backend vista pelo browser |
 | `API_INTERNAL_URL` | URL do backend para chamadas SSR (server→server) |
 | `JWT_SECRET` | mesmo do backend (aqui só **verifica** o cookie no proxy.ts) |
-
----
-
-## Hospedar (produção)
-
-São **dois deploys**: um do `frontend/` (ex.: Vercel) e um do `backend/`
-(ex.: Render/Railway — comando `npm start`, healthcheck em `/health`).
-
-⚠️ **Importante — cookie de sessão.** A autenticação usa cookie httpOnly. Para o
-frontend (SSR) conseguir ler o cookie que o backend seta, os dois precisam
-**compartilhar o domínio-pai**. Recomendado:
-
-- frontend em `app.seudominio.com`, backend em `api.seudominio.com`
-- no backend: `COOKIE_DOMAIN=.seudominio.com`, `COOKIE_SAMESITE=lax`, `COOKIE_SECURE=true`
-- `FRONTEND_ORIGIN=https://app.seudominio.com`
-- no frontend: `NEXT_PUBLIC_API_URL=https://api.seudominio.com`
-
-Se hospedar em domínios totalmente diferentes (ex.: `*.vercel.app` + `*.onrender.com`),
-o cookie vira cross-site: use `COOKIE_SAMESITE=none` + `COOKIE_SECURE=true` — mas aí
-o SSR do frontend não lê o cookie; prefira o domínio-pai comum acima.
-
-> Rotacione `JWT_SECRET` e a senha do banco antes de ir para produção.
