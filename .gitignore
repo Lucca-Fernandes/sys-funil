@@ -1,23 +1,19 @@
-# Monorepo: frontend/ (Next.js) + backend/ (Express). Cada pasta tem seu
-# próprio .gitignore; este cobre o repositório inteiro.
-
 # dependências
-**/node_modules/
-**/.npm-cache/
+/node_modules
+/.npm-cache
 
-# builds / caches
-**/.next/
-**/out/
-**/build/
-*.tsbuildinfo
-
-# Prisma — client gerado
-backend/src/generated/
+# next.js
+/.next/
+/out/
+/build
 
 # variáveis de ambiente (contêm segredos) — .env.example é versionado
-**/.env
-**/.env.*
-!**/.env.example
+.env
+.env.*
+!.env.example
+
+# Prisma — client gerado
+/app/generated/
 
 # logs / SO / editores / ferramentas
 *.log
@@ -26,5 +22,11 @@ backend/src/generated/
 .vscode/
 .claude/
 
-# Next
+# typescript
+*.tsbuildinfo
 next-env.d.ts
+
+# misc
+/coverage
+.vercel
+*.pem

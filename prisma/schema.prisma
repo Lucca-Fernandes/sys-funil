@@ -1,0 +1,118 @@
+// Prisma schema — Sistema de Gestão de Fundo de Funil (meeventos)
+// Docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client"
+  output   = "../app/generated/prisma"
+  runtime  = "nodejs"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+/// Vendedor (closer). Cada closer gerencia os próprios clientes de fundo de funil.
+model Closer {
+  id                 String    @id @default(cuid())
+  nome               String
+  email              String    @unique
+  senhaHash          String
+  /// Caminho/identificador do avatar inicial (ex.: /api/avatar-bootstrap/sara).
+  avatarPath         String?
+  /// Foto enviada pelo próprio closer (substitui o avatar de bootstrap em /docs).
+  avatarData         Bytes?
+  avatarMimeType     String?
+  /// Força troca de senha no primeiro acesso.
+  mustChangePassword Boolean     @default(true)
+  /// Gestor: acessa o painel /admin (gestão da equipe e relatórios).
+  isAdmin            Boolean     @default(false)
+  /// Desativado: não consegue mais entrar (dados preservados).
+  ativo              Boolean     @default(true)
+  clientes           Cliente[]
+  colunas            Coluna[]
+  categorias         Categoria[]
+  createdAt          DateTime    @default(now())
+  updatedAt          DateTime    @updatedAt
+}
+
+/// Categoria = quadro (Kanban) paralelo ao "Fundo de Funil", para outros tipos
+/// de leads. Cada categoria tem suas próprias colunas. O quadro principal
+/// ("Fundo de Funil") é representado por colunas com `categoriaId = null`.
+model Categoria {
+  id        String   @id @default(cuid())
+  nome      String
+  /// Ordem de exibição nos botões de navegação entre categorias.
+  ordem     Int      @default(0)
+  closer    Closer   @relation(fields: [closerId], references: [id], onDelete: Cascade)
+  closerId  String
+  colunas   Coluna[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([closerId])
+}
+
+/// Coluna/categoria do quadro (Kanban) do funil. Criada e organizada por cada closer.
+model Coluna {
+  id        String    @id @default(cuid())
+  titulo    String
+  /// Cor da coluna (hex).
+  cor       String    @default("#f97316")
+  /// Ordem de exibição no quadro (esquerda → direita).
+  ordem     Int       @default(0)
+  /// Colunas FIXAS do funil que alimentam o Dashboard (não deletáveis):
+  /// "agendamento" | "meshow" | "noshow" | "recuperados". Colunas livres: null.
+  chave     String?
+  closer    Closer    @relation(fields: [closerId], references: [id], onDelete: Cascade)
+  closerId  String
+  /// Quadro ao qual a coluna pertence. null = quadro principal "Fundo de Funil".
+  categoria   Categoria? @relation(fields: [categoriaId], references: [id], onDelete: Cascade)
+  categoriaId String?
+  clientes  Cliente[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  @@index([closerId])
+  @@index([categoriaId])
+}
+
+/// Cliente/lead de fundo de funil. Pertence a exatamente um closer.
+model Cliente {
+  id          String  @id @default(cuid())
+  nome        String
+  segmento    String  @default("Não Informado")
+  linkCliente String?
+  anotacoes   String? @db.Text
+
+  // Progresso adicional (widgets)
+  contatosRealizados Int      @default(0) // meta mínima de contatos
+  canais             String[] @default([]) // diversidade de canais usados (keys)
+
+  // Checklist de qualificação/negociação (alimenta o score de Interesse de Compra).
+  // --- Qualificação na call ---
+  confirmouSegmento      Boolean @default(false)
+  tempoMercado           Boolean @default(false)
+  responsavelNaCall      Boolean @default(false)
+  tamanhoEquipe          Boolean @default(false)
+  usaPlataforma          Boolean @default(false)
+  identificouDor         Boolean @default(false)
+  // --- Sinais de negociação ---
+  negociacaoFrequente    Boolean @default(false)
+  multiplasCalls         Boolean @default(false)
+  parouDeResponder       Boolean @default(false)
+  demonstrouDesmotivacao Boolean @default(false)
+
+  // Posição no quadro (Kanban). A coluna define a etapa do funil (Agendamento,
+  // Meshow, No-show, Recuperados…) que alimenta o Dashboard.
+  coluna   Coluna? @relation(fields: [colunaId], references: [id], onDelete: SetNull)
+  colunaId String?
+
+  closer   Closer @relation(fields: [closerId], references: [id], onDelete: Cascade)
+  closerId String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([closerId])
+  @@index([colunaId])
+}
