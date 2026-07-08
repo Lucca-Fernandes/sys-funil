@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { getAdminSession } from "@/lib/session";
 import { hashPassword } from "@/lib/password";
-import { gerarSenhaTemporaria } from "@/lib/senha-temporaria";
+import { SENHA_PADRAO } from "@/lib/senha-temporaria";
 
 type Ctx = { params: Promise<{ id: string }> };
 
@@ -42,7 +42,7 @@ export async function PATCH(req: Request, { params }: Ctx) {
   }
 
   if (body.resetarSenha === true) {
-    senhaTemporaria = gerarSenhaTemporaria();
+    senhaTemporaria = SENHA_PADRAO;
     data.senhaHash = await hashPassword(senhaTemporaria);
     data.mustChangePassword = true;
   }

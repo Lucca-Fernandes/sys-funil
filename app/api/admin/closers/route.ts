@@ -2,11 +2,12 @@ import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { getAdminSession } from "@/lib/session";
 import { hashPassword } from "@/lib/password";
-import { gerarSenhaTemporaria } from "@/lib/senha-temporaria";
+import { SENHA_PADRAO } from "@/lib/senha-temporaria";
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-// Cria o acesso de um novo closer. A senha temporária é retornada UMA vez.
+// Cria o acesso de um novo closer com a senha padrão. O closer é obrigado a
+// trocá-la no primeiro acesso (mustChangePassword).
 export async function POST(req: Request) {
   const session = await getAdminSession();
   if (!session) return NextResponse.json({ error: "Acesso restrito ao gestor." }, { status: 403 });
@@ -31,7 +32,7 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "Já existe um acesso com esse e-mail." }, { status: 409 });
   }
 
-  const senhaTemporaria = gerarSenhaTemporaria();
+  const senhaTemporaria = SENHA_PADRAO;
   const closer = await prisma.closer.create({
     data: {
       nome,
