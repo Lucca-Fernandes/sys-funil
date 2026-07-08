@@ -616,18 +616,18 @@ export default function KanbanBoard({
                       ativa ? pillAtiva : pillInativa
                     }`}
                   >
-                    {/* Nome sempre centralizado; ações flutuam à direita no hover. */}
+                    {/* As ações expandem a largura no hover (não sobrepõem o nome). */}
                     <button
                       onClick={() => router.push(`/fundo-de-funil?categoria=${cat.id}`)}
-                      className="max-w-48 truncate px-7 py-1.5 text-center text-xs font-bold"
+                      className="max-w-48 truncate py-1.5 pl-3.5 pr-3.5 text-center text-xs font-bold transition-[padding] group-hover:pr-1.5"
                       title={nome}
                     >
                       {nome}
                     </button>
-                    <div className="absolute right-1.5 top-1/2 flex -translate-y-1/2 items-center gap-0.5 opacity-0 transition group-hover:opacity-100">
+                    <div className="flex max-w-0 items-center gap-0.5 overflow-hidden opacity-0 transition-all duration-200 group-hover:max-w-20 group-hover:pr-1.5 group-hover:opacity-100">
                       <button
                         onClick={() => setEditandoCategoria({ id: cat.id, nome })}
-                        className="rounded-full p-1 hover:bg-black/10"
+                        className="shrink-0 rounded-full p-1 hover:bg-black/10"
                         title="Renomear categoria"
                         aria-label={`Renomear categoria ${nome}`}
                       >
@@ -635,7 +635,7 @@ export default function KanbanBoard({
                       </button>
                       <button
                         onClick={() => setConfirmDelCategoria(cat.id)}
-                        className="rounded-full p-1 text-[10px] leading-none hover:bg-black/10"
+                        className="shrink-0 rounded-full p-1 text-[10px] leading-none hover:bg-black/10"
                         title="Excluir categoria"
                         aria-label={`Excluir categoria ${nome}`}
                       >
